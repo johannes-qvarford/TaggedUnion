@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 SET(APP TaggedUnion)
 
-if (NOT "${CMAKE_CXX_COMPILER_DI}" STREQUAL "MSVC")
+if (MSVC)
+	SET(CMAKE_CXX_FLAGS /EHsc)
+else ()
 	SET(CMAKE_CXX_FLAGS "-std=c++11")
 endif ()
 

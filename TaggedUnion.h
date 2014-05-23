@@ -14,10 +14,10 @@ namespace tut {
 		Union<Args...> m_union;
 		int m_tag;
 
-		static Union<Args...> s_dummy;
+		//static Union<Args...> s_dummy;
 		
 		template<int I>
-		auto get_() -> decltype(Get<I>::get(s_dummy)) {
+		auto get_() -> decltype(Get<I>::get(std::declval<Union<Args...>>())) {
 #ifdef TUT_DEBUG
 			if (m_tag == UNINITIALIZED || m_tag != I) {
 				assert(0 && "tried to read from union member that wasn't last to be assigned");
@@ -67,7 +67,7 @@ namespace tut {
 		}
 
 		template<int I>
-		auto get() -> decltype(this->get_<I>()) {
+		auto get() -> decltype(Get<I>::get(std::declval<Union<Args...>>())) {
 			TUT_UNION_ASSERT_BOUNDS(I, Args);
 			return get_<I>();
 		}
